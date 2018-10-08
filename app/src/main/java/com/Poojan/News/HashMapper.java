@@ -1,13 +1,9 @@
-package com.yummywakame.breakroom;
+package com.Poojan.News;
+
+
 
 import java.util.Map;
 
-/**
- * GoodNewsFirst
- * Created by Olivia Meiring on 2018/08/12.
- * Yummy Wakame
- * olivia@yummy-wakame.com
- */
 public class HashMapper {
 
     public static String urlToLabel (String value) {

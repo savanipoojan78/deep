@@ -1,14 +1,11 @@
-package com.yummywakame.breakroom;
+package com.Poojan.News;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-/**
- * GoodNewsFirst
- * Created by Olivia Meiring on 2018/08/02.
- * Yummy Wakame
- * olivia@yummy-wakame.com
- */
+
+
+
 public final class UrlConstructor {
 
     // Tag for the log messages
