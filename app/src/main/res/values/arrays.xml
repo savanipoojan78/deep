@@ -28,6 +28,7 @@
         <item>@string/pref_topic_14_label</item>
         <item>@string/pref_topic_15_label</item>
         <item>@string/pref_topic_16_label</item>
+        <item>@string/pref_topic_17_label</item>
     </string-array>
     <string-array name="pref_topic_values">
         <item>@string/pref_topic_0_label_value</item>
@@ -47,5 +48,6 @@
         <item>@string/pref_topic_14_label_value</item>
         <item>@string/pref_topic_15_label_value</item>
         <item>@string/pref_topic_16_label_value</item>
+        <item>@string/pref_topic_17_label_value</item>
     </string-array>
 </resources>

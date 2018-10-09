@@ -61,6 +61,11 @@ public class HashMapper {
         vars.put(
                 MyApplication.getAppContext().getResources().getString(R.string.pref_topic_16_label_value),
                 MyApplication.getAppContext().getResources().getString(R.string.pref_topic_16_label));
+        vars.put(
+          MyApplication.getAppContext().getResources().getString(R.string.pref_topic_17_label),
+                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_17_label));
+
+
 
         return vars.get(value);
     }
