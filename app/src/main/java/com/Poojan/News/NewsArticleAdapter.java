@@ -81,13 +81,13 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // Create a new Date object from the time in milliseconds of the article
         // Format the article_date string (i.e. "Mar 3, '18")
-        String formattedDate = formatDate(currentNewsArticle.getPublishedDate());
+        String formattedDate =currentNewsArticle.getPublishedDate();
         // Find and display the article's Date
         TextView dateView = listItemView.findViewById(R.id.article_date);
         dateView.setText(formattedDate);
 
         // Format the time string (i.e. "4:30 PM")
-        String formattedTime = formatTime(currentNewsArticle.getPublishedDate());
+        String formattedTime = currentNewsArticle.getPublishedDate();
         // Find and display the article's Time
         TextView timeView = listItemView.findViewById(R.id.article_time);
         timeView.setText(formattedTime);
@@ -98,9 +98,9 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         authorView.setText(newsAuthor);
 
         // Find and display the article's Thumbnail
-        Bitmap newsPhoto = currentNewsArticle.getThumbnail();
+        //Bitmap newsPhoto = currentNewsArticle.getThumbnail();
         ImageView photoView = listItemView.findViewById(R.id.article_image);
-        if (newsPhoto != null && NewsArticleLoader.mPrefThumbnail) {
+        if (  NewsArticleLoader.mPrefThumbnail) {
             // If photo available or Thumbnail preference is true
 
             // Set Title maxlines and minlines to 3
@@ -113,7 +113,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
             set.clone(constraintLayout);
             set.setDimensionRatio(photoView.getId(), "16:9");
             set.applyTo(constraintLayout);
-            photoView.setImageBitmap(newsPhoto);
+           // photoView.setImageBitmap(newsPhoto);
 
             // To clip the end of the article_title to end of the article_image (thumbnail):
             // First break the existing constraint connection.
@@ -154,32 +154,32 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
     /**
      * Return a formatted time string (i.e. "Mar 3, '18") from a Date object.
      */
-    private String formatDate(String date) {
-        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-
-        Date date_out = null;
-        try {
-            date_out = inputParser.parse(date);
-        } catch (final ParseException e) {
-            e.printStackTrace();
-        }
-        final SimpleDateFormat outputFormatter = new SimpleDateFormat("MMM dd ''yy", Locale.US);
-        return outputFormatter.format(date_out);
-    }
+//    private String formatDate(String date) {
+//        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+//
+//        Date date_out = null;
+//        try {
+//            date_out = inputParser.parse(date);
+//        } catch (final ParseException e) {
+//            e.printStackTrace();
+//        }
+//        final SimpleDateFormat outputFormatter = new SimpleDateFormat("MMM dd ''yy", Locale.US);
+//        return outputFormatter.format(date_out);
+//    }
 
     /**
      * Return a formatted date string (i.e. "4:30 PM") from a Date object.
      */
-    private String formatTime(String date) {
-        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-
-        Date date_out = null;
-        try {
-            date_out = inputParser.parse(date);
-        } catch (final ParseException e) {
-            e.printStackTrace();
-        }
-        final SimpleDateFormat outputFormatter = new SimpleDateFormat("h:mm a", Locale.US);
-        return outputFormatter.format(date_out);
-    }
+//    private String formatTime(String date) {
+//        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+//
+//        Date date_out = null;
+//        try {
+//            date_out = inputParser.parse(date);
+//        } catch (final ParseException e) {
+//            e.printStackTrace();
+//        }
+//        final SimpleDateFormat outputFormatter = new SimpleDateFormat("h:mm a", Locale.US);
+//        return outputFormatter.format(date_out);
+//    }
 }

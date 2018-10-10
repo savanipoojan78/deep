@@ -213,8 +213,8 @@ public final class NewsQueryUtils {
                         webTitle,
                         html2text(webTrailText),
                         webUrl,
-                        byLine,
-                        downloadBitmap(thumbnail)
+                        byLine
+                        //downloadBitmap(thumbnail)
                 ));
             }
 

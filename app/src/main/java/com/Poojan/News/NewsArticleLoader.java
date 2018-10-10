@@ -29,6 +29,7 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
         mPrefThumbnail = prefThumbnail;
     }
 
+
     @Override
     protected void onStartLoading() {
         forceLoad();

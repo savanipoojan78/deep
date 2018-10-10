@@ -8,9 +8,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +46,8 @@ public class MainActivity extends AppCompatActivity
      * ListView that holds the articles
      **/
     private ListView articleListView;
+    DatabaseReference databaseReference;
+
 
     /**
      * Adapter for the list of articles
@@ -47,7 +58,7 @@ public class MainActivity extends AppCompatActivity
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
-
+    List<NewsArticle> newsArticles = new ArrayList<>();
     /**
      * Swipe to reload spinner that is displayed while data is being downloaded
      */
@@ -127,15 +138,35 @@ public class MainActivity extends AppCompatActivity
         // Get User Preferences or Defaults from Settings
         String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
         String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
-        boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
-
         // Change the Subtitle to Section Choice
         TextView SectionTitle = findViewById(R.id.toolbar_subtitle);
         SectionTitle.setText(HashMapper.urlToLabel(SECTION_CHOICE));
+        if (SECTION_CHOICE.equals("Nirma News")) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("response");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot news : dataSnapshot.getChildren()) {
 
+                        NewsArticle newsArticle = news.getValue(NewsArticle.class);
+                        newsArticles.add(newsArticle);
+                    }
+                    mAdapter = new NewsArticleAdapter(MainActivity.this, newsArticles);
+                    articleListView.setAdapter(mAdapter);
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
         // Construct the API URL to query the Guardian Dataset
         String GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE, ORDER_BY);
-
         // Create a new loader for the given URL
         return new NewsArticleLoader(this, GUARDIAN_SECTION, PREF_THUMBNAIL);
     }

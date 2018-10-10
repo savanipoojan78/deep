@@ -14,7 +14,8 @@ public class NewsArticle {
     private String webTrailText;
     private String webUrl;
     private String byLine;
-    private Bitmap thumbnail;
+    //private Bitmap thumbnail;
+
 
     /**
      * Constructs a new {@link NewsArticle} object
@@ -25,18 +26,20 @@ public class NewsArticle {
      * @param webTrailText       TrailText of the article
      * @param webUrl             Url of the article
      * @param byLine             Author of the article
-     * @param thumbnail          Url to the thumbnail of the article
+              Url to the thumbnail of the article
      */
     public NewsArticle(String webSectionName, String webPublicationDate, String webTitle,
-                       String webTrailText, String webUrl, String byLine, Bitmap thumbnail) {
+                       String webTrailText, String webUrl, String byLine) {
         this.webSectionName = webSectionName;
         this.webPublicationDate = webPublicationDate;
-        this.webTitle = webTitle;
+        this.webTitle = webTitle; //headLine
         this.webTrailText = webTrailText;
         this.webUrl = webUrl;
         this.byLine = byLine;
-        this.thumbnail = thumbnail;
+        //this.thumbnail = thumbnail;
     }
+
+    public NewsArticle(){}
 
     public String getSectionName() {
         return webSectionName;
@@ -62,7 +65,7 @@ public class NewsArticle {
         return byLine;
     }
 
-    public Bitmap getThumbnail() {
-        return thumbnail;
-    }
+//    public Bitmap getThumbnail() {
+//        return thumbnail;
+//    }
 }
