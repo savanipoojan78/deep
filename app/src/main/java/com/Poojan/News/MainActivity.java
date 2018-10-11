@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
      * ListView that holds the articles
      **/
     private ListView articleListView;
-    DatabaseReference databaseReference;
+
 
 
     /**
@@ -58,12 +58,11 @@ public class MainActivity extends AppCompatActivity
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
-    List<NewsArticle> newsArticles = new ArrayList<>();
+
     /**
      * Swipe to reload spinner that is displayed while data is being downloaded
      */
     private SwipeRefreshLayout swipeContainer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 // Check for internet connection and attempt to load data
+
                 loadData();
             }
         });
@@ -133,41 +133,30 @@ public class MainActivity extends AppCompatActivity
                 R.color.secondaryHilight);
     }
 
+
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
         // Get User Preferences or Defaults from Settings
+
         String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
         String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
         // Change the Subtitle to Section Choice
         TextView SectionTitle = findViewById(R.id.toolbar_subtitle);
+        String GUARDIAN_SECTION;
         SectionTitle.setText(HashMapper.urlToLabel(SECTION_CHOICE));
-        if (SECTION_CHOICE.equals("Nirma News")) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("response");
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot news : dataSnapshot.getChildren()) {
-
-                        NewsArticle newsArticle = news.getValue(NewsArticle.class);
-                        newsArticles.add(newsArticle);
-                    }
-                    mAdapter = new NewsArticleAdapter(MainActivity.this, newsArticles);
-                    articleListView.setAdapter(mAdapter);
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
 
         boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
+        if(SECTION_CHOICE.equals("Nirma News"))
+        {
+             GUARDIAN_SECTION=SECTION_CHOICE;
+        }
+        else{
+            GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE, ORDER_BY);
+        }
         // Construct the API URL to query the Guardian Dataset
-        String GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE, ORDER_BY);
+
         // Create a new loader for the given URL
+
         return new NewsArticleLoader(this, GUARDIAN_SECTION, PREF_THUMBNAIL);
     }
 
@@ -232,6 +221,7 @@ public class MainActivity extends AppCompatActivity
      * Loads and reloads the data as requested
      */
     public void loadData() {
+
         // If there is a network connection, fetch data
         if (NewsQueryUtils.isConnected(getBaseContext())) {
             // destroy old loader to get new info

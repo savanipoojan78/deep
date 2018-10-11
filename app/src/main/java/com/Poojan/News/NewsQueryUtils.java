@@ -4,14 +4,21 @@ package com.Poojan.News;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.ViewParent;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +36,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
+
 /**
  * Helper methods related to requesting and receiving article data from The Guardian.
  */
@@ -38,6 +47,7 @@ public final class NewsQueryUtils {
     private static final int MAX_READ_TIMEOUT = 10000;
     /* urlConnection.setConnectTimeout in milliseconds */
     private static final int MAX_CONNECTION_TIMEOUT = 15000;/* milliseconds */
+    private static List<NewsArticle> newsArticles = new ArrayList<>();
 
     /**
      * Tag for the log messages
@@ -77,6 +87,48 @@ public final class NewsQueryUtils {
     /**
      * Returns new URL object from the given string URL.
      */
+    public static List<NewsArticle> fetchArticleDatafromfirebase(String requesturl) {
+        DatabaseReference databaseReference;
+        databaseReference = FirebaseDatabase.getInstance().getReference("response");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot news : dataSnapshot.getChildren()) {
+
+                    String webSectionName = news.child("webSectionName").getValue(String.class);
+                    String webPublicationDate = news.child("webPublicationDate").getValue(String.class);
+                    String webTitle = news.child("webTitle").getValue(String.class);
+                    String webTrailText = news.child("webTrailText").getValue(String.class);
+                    String webUrl = news.child("webUrl").getValue(String.class);
+                    String byLine = news.child("byLine").getValue(String.class);
+                    String thumbnail = news.child("thumbnail").getValue(String.class);
+
+                    Log.e("WebSectionName"," "+webSectionName);
+                    newsArticles.add(new NewsArticle(
+                            webSectionName,
+                            webPublicationDate,
+                            webTitle,
+                            html2text(webTrailText),
+                            webUrl,
+                            byLine,
+                            downloadBitmap(thumbnail)
+                    ));
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, "Something wrong with the Firebase database");
+                Toast.makeText(MyApplication.getAppContext(), "Something wrong with the Firebase database", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        return newsArticles;
+    }
+
+
     private static URL createUrl(String stringUrl) {
         URL url = null;
         try {
@@ -170,7 +222,7 @@ public final class NewsQueryUtils {
         }
 
         // Create an empty ArrayList that we can start adding newsArticles to
-        List<NewsArticle> newsArticles = new ArrayList<>();
+
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -213,8 +265,8 @@ public final class NewsQueryUtils {
                         webTitle,
                         html2text(webTrailText),
                         webUrl,
-                        byLine
-                        //downloadBitmap(thumbnail)
+                        byLine,
+                        downloadBitmap(thumbnail)
                 ));
             }
 

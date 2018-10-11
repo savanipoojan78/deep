@@ -14,7 +14,7 @@ public class NewsArticle {
     private String webTrailText;
     private String webUrl;
     private String byLine;
-    //private Bitmap thumbnail;
+    private Bitmap thumbnail;
 
 
     /**
@@ -29,14 +29,14 @@ public class NewsArticle {
               Url to the thumbnail of the article
      */
     public NewsArticle(String webSectionName, String webPublicationDate, String webTitle,
-                       String webTrailText, String webUrl, String byLine) {
+                       String webTrailText, String webUrl, String byLine,Bitmap thumbnail) {
         this.webSectionName = webSectionName;
         this.webPublicationDate = webPublicationDate;
         this.webTitle = webTitle; //headLine
         this.webTrailText = webTrailText;
         this.webUrl = webUrl;
         this.byLine = byLine;
-        //this.thumbnail = thumbnail;
+        this.thumbnail = thumbnail;
     }
 
     public NewsArticle(){}
@@ -65,7 +65,7 @@ public class NewsArticle {
         return byLine;
     }
 
-//    public Bitmap getThumbnail() {
-//        return thumbnail;
-//    }
+    public Bitmap getThumbnail() {
+        return thumbnail;
+    }
 }

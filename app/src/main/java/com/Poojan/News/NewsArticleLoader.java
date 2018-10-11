@@ -40,12 +40,21 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
      */
     @Override
     public List<NewsArticle> loadInBackground() {
+        List<NewsArticle> newsArticles = null;
+
         if (mUrl == null) {
             return null;
         }
+        if(mUrl.equals("Nirma News"))
+        {
+            newsArticles = NewsQueryUtils.fetchArticleDatafromfirebase(mUrl);
+        }
+        else{
+            newsArticles = NewsQueryUtils.fetchArticleData(mUrl);
+
+        }
 
         // Perform the network request, parse the response, and extract a list of newsArticles.
-        List<NewsArticle> newsArticles = NewsQueryUtils.fetchArticleData(mUrl);
         return newsArticles;
     }
 }
