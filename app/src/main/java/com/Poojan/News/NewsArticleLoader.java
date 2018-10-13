@@ -15,6 +15,7 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
     /** Query URL */
     private String mUrl;
     public static boolean mPrefThumbnail;
+    List<NewsArticle> newsArticles = null;
 
     /**
      * Constructs a new {@link NewsArticleLoader}.
@@ -29,7 +30,6 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
         mPrefThumbnail = prefThumbnail;
     }
 
-
     @Override
     protected void onStartLoading() {
         forceLoad();
@@ -40,14 +40,14 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
      */
     @Override
     public List<NewsArticle> loadInBackground() {
-        List<NewsArticle> newsArticles = null;
+
 
         if (mUrl == null) {
             return null;
         }
         if(mUrl.equals("Nirma News"))
         {
-            newsArticles = NewsQueryUtils.fetchArticleDatafromfirebase(mUrl);
+            newsArticles = NewsQueryUtils.fetchArticleDatafromfirebase();
         }
         else{
             newsArticles = NewsQueryUtils.fetchArticleData(mUrl);

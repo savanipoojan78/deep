@@ -41,7 +41,7 @@ import static android.support.constraint.Constraints.TAG;
 /**
  * Helper methods related to requesting and receiving article data from The Guardian.
  */
-public final class NewsQueryUtils {
+final class NewsQueryUtils {
 
     /* urlConnection.setReadTimeout in milliseconds */
     private static final int MAX_READ_TIMEOUT = 10000;
@@ -65,7 +65,7 @@ public final class NewsQueryUtils {
     /**
      * Query the Guardian dataset and return a list of {@link NewsArticle} objects.
      */
-    public static List<NewsArticle> fetchArticleData(String requestUrl) {
+    static List<NewsArticle> fetchArticleData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -78,16 +78,15 @@ public final class NewsQueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link NewsArticle}s
-        List<NewsArticle> newsArticles = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link NewsArticle}s
-        return newsArticles;
+        return extractFeatureFromJson(jsonResponse);
     }
 
     /**
      * Returns new URL object from the given string URL.
      */
-    public static List<NewsArticle> fetchArticleDatafromfirebase(String requesturl) {
+    static List<NewsArticle> fetchArticleDatafromfirebase() {
         DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance().getReference("response");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -222,7 +221,7 @@ public final class NewsQueryUtils {
         }
 
         // Create an empty ArrayList that we can start adding newsArticles to
-
+        List<NewsArticle> newsArticles = new ArrayList<>();
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -286,7 +285,7 @@ public final class NewsQueryUtils {
     /**
      * Strip out possible HTML tags from the webTrailText using jSoup
      */
-    public static String html2text(String html) {
+    private static String html2text(String html) {
         return Jsoup.parse(html).text();
     }
 
@@ -324,7 +323,7 @@ public final class NewsQueryUtils {
     /**
      * Checks to see if there is a network connection when needed
      */
-    public static boolean isConnected(Context context) {
+    static boolean isConnected(Context context) {
         boolean connected = false;
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)

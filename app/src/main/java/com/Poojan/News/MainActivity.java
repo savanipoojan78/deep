@@ -22,14 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,6 +132,8 @@ public class MainActivity extends AppCompatActivity
 
         String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
         String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
+        //boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
+
         // Change the Subtitle to Section Choice
         TextView SectionTitle = findViewById(R.id.toolbar_subtitle);
         String GUARDIAN_SECTION;
@@ -221,7 +215,6 @@ public class MainActivity extends AppCompatActivity
      * Loads and reloads the data as requested
      */
     public void loadData() {
-
         // If there is a network connection, fetch data
         if (NewsQueryUtils.isConnected(getBaseContext())) {
             // destroy old loader to get new info
