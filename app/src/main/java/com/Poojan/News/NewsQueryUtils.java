@@ -47,7 +47,6 @@ final class NewsQueryUtils {
     private static final int MAX_READ_TIMEOUT = 10000;
     /* urlConnection.setConnectTimeout in milliseconds */
     private static final int MAX_CONNECTION_TIMEOUT = 15000;/* milliseconds */
-    private static List<NewsArticle> newsArticles = new ArrayList<>();
 
     /**
      * Tag for the log messages
@@ -87,6 +86,7 @@ final class NewsQueryUtils {
      * Returns new URL object from the given string URL.
      */
     static List<NewsArticle> fetchArticleDatafromfirebase() {
+        final List<NewsArticle> newsArticles = new ArrayList<>();
         DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance().getReference("response");
         databaseReference.addValueEventListener(new ValueEventListener() {
