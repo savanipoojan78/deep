@@ -102,61 +102,22 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         TextView authorView = listItemView.findViewById(R.id.article_author);
         authorView.setText(newsAuthor);
         ImageView photoView = listItemView.findViewById(R.id.article_image);
+        titleView.setMaxLines(3);
+        titleView.setMinLines(3);
+        ConstraintLayout constraintLayout = listItemView.findViewById(R.id.newslist_constraint_layout);
+        ConstraintSet set = new ConstraintSet();
+        set.clone(constraintLayout);
+        set.setDimensionRatio(photoView.getId(), "16:9");
+        set.applyTo(constraintLayout);
+        set.clear(R.id.article_title, ConstraintSet.START);
+        // Then attach a new constraint connection.
+        set.connect(R.id.article_title, ConstraintSet.END, R.id.article_image, ConstraintSet.END, 0);
+        set.applyTo(constraintLayout);
 
         // Find and display the article's Thumbnail
-       // Bitmap newsPhoto = currentNewsArticle.getThumbnail();
-        String newsPhoto=currentNewsArticle.getThumbnail();
-       Picasso.with(context).load(currentNewsArticle.getThumbnail()).into(photoView);
-
-
-        Log.e("NewsArticlaAdapter","Bitmap Newsphoto:- "+newsPhoto);
-
-        if (newsPhoto != null && NewsArticleLoader.mPrefThumbnail) {
-            // If photo available or Thumbnail preference is true
-
-            // Set Title maxlines and minlines to 3
-            titleView.setMaxLines(3);
-            titleView.setMinLines(3);
-
-            // target and increase the aspect-ratio for photoView to 16:9
-            ConstraintLayout constraintLayout = listItemView.findViewById(R.id.newslist_constraint_layout);
-            ConstraintSet set = new ConstraintSet();
-            set.clone(constraintLayout);
-            set.setDimensionRatio(photoView.getId(), "16:9");
-            set.applyTo(constraintLayout);
-            //photoView.setImageBitmap(newsPhoto);
-
-            // To clip the end of the article_title to end of the article_image (thumbnail):
-            // First break the existing constraint connection.
-            set.clear(R.id.article_title, ConstraintSet.START);
-            // Then attach a new constraint connection.
-            set.connect(R.id.article_title, ConstraintSet.END, R.id.article_image, ConstraintSet.END, 0);
-            set.applyTo(constraintLayout);
-
-        } else {
-            // Remove photo and change layout:
-            // Increase Title maxlines and minlines from 3 to 4
-            titleView.setMaxLines(3);
-            titleView.setMinLines(3);
-
-            // target and decrease the aspect-ratio for photoView to 16:4
-            ConstraintLayout constraintLayout = listItemView.findViewById(R.id.newslist_constraint_layout);
-            ConstraintSet set = new ConstraintSet();
-            set.clone(constraintLayout);
-            set.setDimensionRatio(photoView.getId(), "16:9");
-            set.applyTo(constraintLayout);
-            // set background color in lieu of thumbnail image
-            photoView.setImageResource(R.drawable.guardian_placeholder);
-            photoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            // To clip the end of article_title to start of article_time (bookmark):
-            // First break the constraint connection.
-            set.clear(R.id.article_title, ConstraintSet.END);
-            // Then attach a new constraint connection.
-            set.connect(R.id.article_title, ConstraintSet.END, R.id.article_time, ConstraintSet.START, 0);
-            set.connect(R.id.article_title, ConstraintSet.START, R.id.article_image, ConstraintSet.START, 0);
-            set.applyTo(constraintLayout);
-        }
+       Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.guardian_placeholder).
+               error(R.drawable.guardian_placeholder)
+               .into(photoView);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
