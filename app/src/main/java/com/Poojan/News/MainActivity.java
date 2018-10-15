@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity
      **/
     private ListView articleListView;
 
-
-
     /**
      * Adapter for the list of articles
      */
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity
      * Swipe to reload spinner that is displayed while data is being downloaded
      */
     private SwipeRefreshLayout swipeContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 // Check for internet connection and attempt to load data
-
                 loadData();
             }
         });
@@ -125,21 +123,18 @@ public class MainActivity extends AppCompatActivity
                 R.color.secondaryHilight);
     }
 
-
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
         // Get User Preferences or Defaults from Settings
 
         String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
         String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
-        //boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
+        boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
 
         // Change the Subtitle to Section Choice
         TextView SectionTitle = findViewById(R.id.toolbar_subtitle);
         String GUARDIAN_SECTION;
         SectionTitle.setText(HashMapper.urlToLabel(SECTION_CHOICE));
-
-        boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
         if(SECTION_CHOICE.equals("Nirma News"))
         {
              GUARDIAN_SECTION=SECTION_CHOICE;

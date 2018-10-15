@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,6 +33,7 @@ import java.util.Locale;
  * to be displayed to the user.
  */
 public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
+    private Context context;
 
     /**
      * Constructs a new {@link NewsArticleAdapter}.
@@ -39,6 +43,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
      */
     public NewsArticleAdapter(@NonNull Context context, @NonNull List<NewsArticle> newsArticles) {
         super(context, 0, newsArticles);
+        this.context=context;
     }
 
     /**
@@ -96,10 +101,16 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         String newsAuthor = currentNewsArticle.getAuthor() + " ";
         TextView authorView = listItemView.findViewById(R.id.article_author);
         authorView.setText(newsAuthor);
+        ImageView photoView = listItemView.findViewById(R.id.article_image);
 
         // Find and display the article's Thumbnail
-        Bitmap newsPhoto = currentNewsArticle.getThumbnail();
-        ImageView photoView = listItemView.findViewById(R.id.article_image);
+       // Bitmap newsPhoto = currentNewsArticle.getThumbnail();
+        String newsPhoto=currentNewsArticle.getThumbnail();
+       Picasso.with(context).load(currentNewsArticle.getThumbnail()).into(photoView);
+
+
+        Log.e("NewsArticlaAdapter","Bitmap Newsphoto:- "+newsPhoto);
+
         if (newsPhoto != null && NewsArticleLoader.mPrefThumbnail) {
             // If photo available or Thumbnail preference is true
 
@@ -113,7 +124,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
             set.clone(constraintLayout);
             set.setDimensionRatio(photoView.getId(), "16:9");
             set.applyTo(constraintLayout);
-            photoView.setImageBitmap(newsPhoto);
+            //photoView.setImageBitmap(newsPhoto);
 
             // To clip the end of the article_title to end of the article_image (thumbnail):
             // First break the existing constraint connection.
@@ -125,17 +136,17 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         } else {
             // Remove photo and change layout:
             // Increase Title maxlines and minlines from 3 to 4
-            titleView.setMaxLines(4);
-            titleView.setMinLines(4);
+            titleView.setMaxLines(3);
+            titleView.setMinLines(3);
 
             // target and decrease the aspect-ratio for photoView to 16:4
             ConstraintLayout constraintLayout = listItemView.findViewById(R.id.newslist_constraint_layout);
             ConstraintSet set = new ConstraintSet();
             set.clone(constraintLayout);
-            set.setDimensionRatio(photoView.getId(), "16:4");
+            set.setDimensionRatio(photoView.getId(), "16:9");
             set.applyTo(constraintLayout);
             // set background color in lieu of thumbnail image
-            photoView.setImageResource(R.drawable.no_thumbnail_bg);
+            photoView.setImageResource(R.drawable.guardian_placeholder);
             photoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             // To clip the end of article_title to start of article_time (bookmark):

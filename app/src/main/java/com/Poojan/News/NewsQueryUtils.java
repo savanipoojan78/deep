@@ -101,8 +101,13 @@ final class NewsQueryUtils {
                     String webUrl = news.child("webUrl").getValue(String.class);
                     String byLine = news.child("byLine").getValue(String.class);
                     String thumbnail = news.child("thumbnail").getValue(String.class);
+                    // Log.e("thumbnail String "," "+thumbnail);
+                   // Bitmap bitmap = downloadBitmap(thumbnail);
+                   // Log.e("bitmap after String", " " + bitmap);
 
-                    Log.e("WebSectionName"," "+webSectionName);
+
+                    // Log.e("WebSectionName"," "+webSectionName);
+                    //Log.e("WebsitePhoto", " "+thumbnail);
                     newsArticles.add(new NewsArticle(
                             webSectionName,
                             webPublicationDate,
@@ -110,7 +115,7 @@ final class NewsQueryUtils {
                             html2text(webTrailText),
                             webUrl,
                             byLine,
-                            downloadBitmap(thumbnail)
+                            thumbnail
                     ));
 
 
@@ -256,6 +261,8 @@ final class NewsQueryUtils {
                 webUrl = jsonObjectFields.getString("shortUrl");
                 byLine = jsonObjectFields.optString("byline");
                 thumbnail = jsonObjectFields.optString("thumbnail");
+                Log.e("thumbnail", " " + thumbnail);
+
 
                 // Add a new NewsArticle from the data
                 newsArticles.add(new NewsArticle(
@@ -265,7 +272,7 @@ final class NewsQueryUtils {
                         html2text(webTrailText),
                         webUrl,
                         byLine,
-                        downloadBitmap(thumbnail)
+                        thumbnail
                 ));
             }
 
@@ -293,32 +300,30 @@ final class NewsQueryUtils {
      * Load the low res thumbnail image from the URL. If available in 1000px format,
      * use that instead. Return a {@link Bitmap}
      * Credit to Mohammad Ali Fouani via https://stackoverflow.com/q/51587354/9302422
+     * <p>
+     * // * @param originalUrl string of the original URL link to the thumbnail image
      *
-     * @param originalUrl string of the original URL link to the thumbnail image
      * @return Bitmap of the image
      */
-    private static Bitmap downloadBitmap(String originalUrl) {
-        Bitmap bitmap = null;
-        // If thumbnail exists, replace the end of the originalUrl into a newUrl string
-        // (e.g. /500.jpg or similar) with /1000.jpg
-        if (!"".equals(originalUrl)) {
-            String newUrl = originalUrl.replace
-                    (originalUrl.substring(originalUrl.lastIndexOf("/")), "/1000.jpg");
-            try {
-                // see if the higher-res image exists
-                InputStream inputStream = new URL(newUrl).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                try {
-                    // if no higher-res image is found, revert to original image url
-                    InputStream inputStream = new URL(originalUrl).openStream();
-                    bitmap = BitmapFactory.decodeStream(inputStream);
-                } catch (Exception ignored) {
-                }
-            }
-        }
-        return bitmap;
-    }
+//    private static Bitmap downloadBitmap(String originalUrl) {
+//        Bitmap bitmap = null;
+//        try {
+//            Log.e("OriginalUrl",originalUrl);
+//            URL url = new URL(originalUrl);
+//            Log.e("url"," "+url.toString());
+//            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//            Log.e("Bitmap"," "+ bitmap.toString());
+//
+//        } catch (Exception ignored) {
+//            Log.e("NewsQuery", "Something Wrong with The Download");
+//        }
+//
+//
+//
+//        return bitmap;
+//    }
+
+
 
     /**
      * Checks to see if there is a network connection when needed
