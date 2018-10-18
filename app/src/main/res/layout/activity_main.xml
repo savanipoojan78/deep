@@ -26,6 +26,12 @@
         android:alpha=".7"
         android:contentDescription="@string/image_desc_guardian_logo"
         android:src="@drawable/guardian_logo_white" />
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview"/>
+
+
 
     <!-- Splash logo text: "Powered by" -->
     <TextView

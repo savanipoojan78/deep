@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
+    private WebView webView;
 
     /**
      * Swipe to reload spinner that is displayed while data is being downloaded
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         mEmptyStateTextView = findViewById(R.id.feedback_view);
         articleListView.setEmptyView(mEmptyStateTextView);
         mEmptyStateTextView.setText("");
+        webView=(WebView)findViewById(R.id.webview);
 
         // Create a new adapter that takes an empty list of articles as input
         mAdapter = new NewsArticleAdapter(this, new ArrayList<NewsArticle>());
@@ -96,13 +99,14 @@ public class MainActivity extends AppCompatActivity
                 NewsArticle currentNewsArticle = mAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri articleUri = Uri.parse(currentNewsArticle.getUrl());
+//                Uri articleUri = Uri.parse(currentNewsArticle.getUrl());
+                webView.loadUrl(currentNewsArticle.getUrl());
 
                 // Create a new intent to view the article URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-
-                // Send the intent to launch a new activity
-                startActivity(websiteIntent);
+//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+//
+//                // Send the intent to launch a new activity
+//                startActivity(websiteIntent);
             }
         });
 
