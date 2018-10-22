@@ -38,58 +38,28 @@
     <!-- Order preference-->
     <string name="pref_order_by_title">Order By</string>
     <string name="pref_order_by_key" translatable="false">order_by</string>
-    <string name="pref_order_by_default">@string/pref_order_by_newest_value</string>
-    <string name="pref_order_by_newest_label">Newest</string>
-    <string name="pref_order_by_oldest_label">Oldest</string>
     <string name="pref_order_by_relevance_label">Relevance</string>
-    <string name="pref_order_by_newest_value" translatable="false">newest</string>
-    <string name="pref_order_by_oldest_value" translatable="false">oldest</string>
-    <string name="pref_order_by_relevance_value" translatable="false">relevance</string>
-
-    <string name="pref_order_by_newest_url" translatable="false">&amp;orderBy=newest</string>
-    <string name="pref_order_by_oldest_url" translatable="false">&amp;orderBy=oldest</string>
-    <string name="pref_order_by_relevance_url" translatable="false">&amp;orderBy=relevance</string>
 
     <!-- Topic preference-->
     <string name="pref_topic_title">Topic</string>
     <string name="pref_topic_key" translatable="false">topic</string>
     <string name="pref_topic_default">@string/pref_topic_0_label_value</string>
-    <string name="pref_topic_0_label">Good News</string>
-    <string name="pref_topic_1_label">U.S. News</string>
-    <string name="pref_topic_2_label">World News</string>
-    <string name="pref_topic_3_label">Sport</string>
-    <string name="pref_topic_4_label">Business</string>
-    <string name="pref_topic_5_label">Politics</string>
+    <string name="pref_topic_0_label">Business</string>
+    <string name="pref_topic_1_label">Entertainment</string>
+    <string name="pref_topic_2_label">General</string>
+    <string name="pref_topic_3_label">Health</string>
+    <string name="pref_topic_4_label">Science</string>
+    <string name="pref_topic_5_label">Sports</string>
     <string name="pref_topic_6_label">Technology</string>
-    <string name="pref_topic_7_label">Art &amp; Design</string>
-    <string name="pref_topic_8_label">Culture</string>
-    <string name="pref_topic_9_label">Education</string>
-    <string name="pref_topic_10_label">Environment</string>
-    <string name="pref_topic_11_label">Film</string>
-    <string name="pref_topic_12_label">Life &amp; Style</string>
-    <string name="pref_topic_13_label">Music</string>
-    <string name="pref_topic_14_label">Science</string>
-    <string name="pref_topic_15_label">Travel</string>
-    <string name="pref_topic_16_label">Women in Leadership</string>
-    <string name="pref_topic_0_label_value" translatable="false">tag=world/series/the-upside-weekly-report</string>
-    <string name="pref_topic_1_label_value" translatable="false">section=us-news</string>
-    <string name="pref_topic_2_label_value" translatable="false">section=world</string>
-    <string name="pref_topic_3_label_value" translatable="false">section=sport&amp;editions=us/sport</string>
-    <string name="pref_topic_4_label_value" translatable="false">section=business&amp;editions=us/business</string>
-    <string name="pref_topic_5_label_value" translatable="false">tag=us-news/us-politics</string>
-    <string name="pref_topic_6_label_value" translatable="false">section=technology&amp;editions=us/technology</string>
-    <string name="pref_topic_7_label_value" translatable="false">section=artanddesign</string>
-    <string name="pref_topic_8_label_value" translatable="false">section=culture&amp;editions=us/culture</string>
-    <string name="pref_topic_9_label_value" translatable="false">section=education&amp;editions=us/education</string>
-    <string name="pref_topic_10_label_value" translatable="false">section=environment&amp;editions=us/environment</string>
-    <string name="pref_topic_11_label_value" translatable="false">section=film&amp;editions=us/film</string>
-    <string name="pref_topic_12_label_value" translatable="false">section=lifeandstyle&amp;editions=us/lifeandstyle</string>
-    <string name="pref_topic_13_label_value" translatable="false">section=music</string>
-    <string name="pref_topic_14_label_value" translatable="false">section=science</string>
-    <string name="pref_topic_15_label_value" translatable="false">section=travel&amp;editions=us/travel</string>
-    <string name="pref_topic_16_label_value" translatable="false">section=women-in-leadership</string>
-    <string name="pref_topic_17_label" translatable="false">Nirma News</string>
-    <string name="pref_topic_17_label_value" translatable="false">Nirma News</string>
+    <string name="pref_topic_7_label">Nirma News</string>
+    <string name="pref_topic_0_label_value" translatable="false">&amp;category=business</string>
+    <string name="pref_topic_1_label_value" translatable="false">&amp;category=entertainment</string>
+    <string name="pref_topic_2_label_value" translatable="false">&amp;category=general</string>
+    <string name="pref_topic_3_label_value" translatable="false">&amp;category=health</string>
+    <string name="pref_topic_4_label_value" translatable="false">&amp;category=science</string>
+    <string name="pref_topic_5_label_value" translatable="false">&amp;category=sports</string>
+    <string name="pref_topic_6_label_value" translatable="false">&amp;category=technology</string>
+    <string name="pref_topic_7_label_value" translatable="false">Nirma News</string>
 
     <!--Thumbnails preference-->
     <string name="pref_thumbnail_title">Display Thumbnails</string>

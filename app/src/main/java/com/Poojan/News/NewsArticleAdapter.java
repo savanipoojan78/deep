@@ -2,12 +2,10 @@
 package com.Poojan.News;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +39,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
      */
     public NewsArticleAdapter(@NonNull Context context, @NonNull List<NewsArticle> newsArticles) {
         super(context, 0, newsArticles);
-        this.context=context;
+        this.context = context;
     }
 
     /**
@@ -86,7 +82,7 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // Create a new Date object from the time in milliseconds of the article
         // Format the article_date string (i.e. "Mar 3, '18")
-        String formattedDate =formatDate(currentNewsArticle.getPublishedDate());
+        String formattedDate = formatDate(currentNewsArticle.getPublishedDate());
         // Find and display the article's Date
         TextView dateView = listItemView.findViewById(R.id.article_date);
         dateView.setText(formattedDate);
@@ -98,9 +94,15 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         timeView.setText(formattedTime);
 
         // Get and display the article's Author
-        String newsAuthor = currentNewsArticle.getAuthor() + " ";
+        String newsAuthor = currentNewsArticle.getAuthor();
         TextView authorView = listItemView.findViewById(R.id.article_author);
-        authorView.setText(newsAuthor);
+        if(newsAuthor != null)
+        {
+            authorView.setText(newsAuthor);
+        }
+        else{
+            authorView.setText("Poojan Savani");
+        }
         ImageView photoView = listItemView.findViewById(R.id.article_image);
         titleView.setMaxLines(3);
         titleView.setMinLines(3);
@@ -115,9 +117,9 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         set.applyTo(constraintLayout);
 
         // Find and display the article's Thumbnail
-       Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.guardian_placeholder).
-               error(R.drawable.guardian_placeholder)
-               .into(photoView);
+        Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.guardian_placeholder).
+                error(R.drawable.guardian_placeholder)
+                .into(photoView);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

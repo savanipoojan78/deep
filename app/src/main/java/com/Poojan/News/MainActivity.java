@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         // Get User Preferences or Defaults from Settings
 
         String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
-        String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
+        //String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
         boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
 
         // Change the Subtitle to Section Choice
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
              GUARDIAN_SECTION=SECTION_CHOICE;
         }
         else{
-            GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE, ORDER_BY);
+            GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE);
         }
         // Construct the API URL to query the Guardian Dataset
 

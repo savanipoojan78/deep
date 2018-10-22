@@ -237,10 +237,9 @@ final class NewsQueryUtils {
 
             // Extract the JSONArray associated with the key called "response",
             // which represents a list of features (or newsArticles).
-            JSONObject jsonObjectResponse = jsonObjectRoot.getJSONObject("response");
 
             // Grab the results array from the base object
-            JSONArray jsonArrayResults = jsonObjectResponse.getJSONArray("results");
+            JSONArray jsonArrayResults = jsonObjectRoot.getJSONArray("articles");
 
             // For each article in the articleArray, create an {@link NewsArticle} object
             for (int i = 0; i < jsonArrayResults.length(); i++) {
@@ -249,18 +248,18 @@ final class NewsQueryUtils {
                 JSONObject currentArticle = jsonArrayResults.getJSONObject(i);
 
                 // Target the fields object that contains all the elements we need
-                JSONObject jsonObjectFields = currentArticle.getJSONObject("fields");
+                JSONObject jsonObjectFields = currentArticle.getJSONObject("source");
 
                 // Note:    optString() will return null when fails.
                 //          getString() will throw exception when it fails.
 
-                webSectionName = currentArticle.optString("sectionName");
-                webPublicationDate = currentArticle.optString("webPublicationDate");
-                webTitle = jsonObjectFields.getString("headline");
-                webTrailText = jsonObjectFields.optString("trailText");
-                webUrl = jsonObjectFields.getString("shortUrl");
-                byLine = jsonObjectFields.optString("byline");
-                thumbnail = jsonObjectFields.optString("thumbnail");
+                webSectionName = jsonObjectFields.optString("name");
+                webPublicationDate = currentArticle.optString("publishedAt");
+                webTitle = currentArticle.getString("title");
+                webTrailText = currentArticle.optString("description");
+                webUrl = currentArticle.getString("url");
+                byLine = currentArticle.optString("author");
+                thumbnail = currentArticle.optString("urlToImage");
                 Log.e("thumbnail", " " + thumbnail);
 
 

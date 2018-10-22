@@ -33,8 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
             // Order articles by user's preference
-            Preference orderBy = findPreference(getString(R.string.pref_order_by_key));
-            setPreferenceSummary(orderBy);
 
             // Get user's section preference
             Preference chosenSection = findPreference(getString(R.string.pref_topic_key));
@@ -42,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
 
             // LOG chosen variables
             Log.i(LOG_TAG, "Variable chosenSection: " + chosenSection );
-            Log.i(LOG_TAG, "Variable orderBy: " + orderBy );
         }
 
         @Override

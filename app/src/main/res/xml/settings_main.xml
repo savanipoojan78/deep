@@ -11,13 +11,6 @@
             android:dialogTitle="@string/pref_topic_title"
             android:summary="%s"/>
 
-        <ListPreference
-            android:defaultValue="@string/pref_order_by_default"
-            android:entries="@array/pref_order_by_labels"
-            android:entryValues="@array/pref_order_by_values"
-            android:key="@string/pref_order_by_key"
-            android:title="@string/pref_order_by_title"
-            android:summary="%s"/>
 
     </PreferenceCategory>
 

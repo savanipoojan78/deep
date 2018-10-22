@@ -34,36 +34,6 @@ public class HashMapper {
         vars.put(
                 MyApplication.getAppContext().getResources().getString(R.string.pref_topic_7_label_value),
                 MyApplication.getAppContext().getResources().getString(R.string.pref_topic_7_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_8_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_8_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_9_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_9_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_10_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_10_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_11_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_11_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_12_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_12_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_13_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_13_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_14_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_14_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_15_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_15_label));
-        vars.put(
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_16_label_value),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_16_label));
-        vars.put(
-          MyApplication.getAppContext().getResources().getString(R.string.pref_topic_17_label),
-                MyApplication.getAppContext().getResources().getString(R.string.pref_topic_17_label));
 
 
 
