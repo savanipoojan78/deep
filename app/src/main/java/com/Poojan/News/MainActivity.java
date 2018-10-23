@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mToolbar.setNavigationIcon(R.drawable.bookmark);
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         mEmptyStateTextView = findViewById(R.id.feedback_view);
         articleListView.setEmptyView(mEmptyStateTextView);
         mEmptyStateTextView.setText("");
-        
+
 
         // Create a new adapter that takes an empty list of articles as input
         mAdapter = new NewsArticleAdapter(this, new ArrayList<NewsArticle>());
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 // Check for internet connection and attempt to load data
+                swipeContainer.setRefreshing(true);
                 loadData();
             }
         });
@@ -207,10 +211,6 @@ public class MainActivity extends AppCompatActivity
     // This method is called whenever an button in the Toolbar is selected.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
-                swipeContainer.setRefreshing(true);
-                loadData();
-                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
