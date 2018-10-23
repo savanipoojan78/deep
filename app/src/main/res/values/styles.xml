@@ -14,6 +14,7 @@
         <item name="android:textSize">@dimen/text_size_apptitle</item>
         <item name="android:textColor">@color/secondaryHilight</item>
     </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Toolbar SubTitleView Text -->
     <style name="AppSubTitleText" parent="@style/TextAppearance.AppCompat.Title">

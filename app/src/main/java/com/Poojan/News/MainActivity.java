@@ -9,7 +9,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -59,11 +62,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.nevigation);
+
 
         // Find the menu toolbar for app compat
         Toolbar mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         // Hide the default title to use the designed one instead
         if (getSupportActionBar() != null) {
@@ -81,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         mEmptyStateTextView = findViewById(R.id.feedback_view);
         articleListView.setEmptyView(mEmptyStateTextView);
         mEmptyStateTextView.setText("");
-        webView=(WebView)findViewById(R.id.webview);
+        
 
         // Create a new adapter that takes an empty list of articles as input
         mAdapter = new NewsArticleAdapter(this, new ArrayList<NewsArticle>());
