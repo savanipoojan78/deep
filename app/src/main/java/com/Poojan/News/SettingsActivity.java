@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
+            //getActivity().onBackPressed();
             // Order articles by user's preference
 
             // Get user's section preference
