@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
+        implements LoaderManager.LoaderCallbacks<List<NewsArticle>>,NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * Constant value for the article loader ID. We can choose any integer.
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity
      */
     private TextView mEmptyStateTextView;
     private WebView webView;
+    String SECTION_CHOICE;
 
     /**
      * Swipe to reload spinner that is displayed while data is being downloaded
@@ -61,9 +63,20 @@ public class MainActivity extends AppCompatActivity
     private SwipeRefreshLayout swipeContainer;
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nevigation);
+        SECTION_CHOICE=getString(R.string.pref_topic_7_label_value);
 
 
         // Find the menu toolbar for app compat
@@ -72,17 +85,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mToolbar.setNavigationIcon(R.drawable.bookmark);
+        mToolbar.setNavigationIcon(R.drawable.bookmark2);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Hide the default title to use the designed one instead
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
 
         // Lookup the swipe container view
         swipeContainer = findViewById(R.id.swipeContainer);
@@ -145,8 +160,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
         // Get User Preferences or Defaults from Settings
-
-        String SECTION_CHOICE = getPreferenceStringValue(R.string.pref_topic_key, R.string.pref_topic_default);
         //String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
         boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
 
@@ -247,21 +260,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * A helper method to extract current preference String value
-     *
-     * @param key          preference's key
-     * @param defaultValue preference's default value
-     * @return preference  current value
-     */
-    public String getPreferenceStringValue(int key, int defaultValue) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return sharedPreferences.getString(
-                getString(key),
-                getString(defaultValue)
-        );
-    }
-
-    /**
      * A helper method to extract current preference boolean value
      *
      * @param key          preference's key
@@ -274,5 +272,41 @@ public class MainActivity extends AppCompatActivity
                 getString(key),
                 getResources().getBoolean(defaultValue)
         );
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_business) {
+            SECTION_CHOICE=getString(R.string.pref_topic_0_label_value);
+            // Handle the camera action
+        } else if (id == R.id.nav_entertinment) {
+            SECTION_CHOICE=getString(R.string.pref_topic_1_label_value);
+
+        } else if (id == R.id.nav_general) {
+            SECTION_CHOICE=getString(R.string.pref_topic_2_label_value);
+
+        } else if (id == R.id.nav_health) {
+            SECTION_CHOICE=getString(R.string.pref_topic_3_label_value);
+
+        } else if (id == R.id.nav_science) {
+            SECTION_CHOICE=getString(R.string.pref_topic_4_label_value);
+
+        } else if (id == R.id.nav_sports) {
+            SECTION_CHOICE=getString(R.string.pref_topic_5_label_value);
+
+        }
+        else if (id == R.id.nav_technology) {
+            SECTION_CHOICE=getString(R.string.pref_topic_6_label_value);
+
+        }
+        else if (id == R.id.nav_nirma) {
+            SECTION_CHOICE=getString(R.string.pref_topic_7_label_value);
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        loadData();
+        return true;
     }
 }

@@ -97,5 +97,8 @@
         <item name="colorAccent">@color/primaryHilight</item>
         <item name="android:textSize">@dimen/text_size_m</item>
     </style>
+    <style name="Navigatio">
+        <item name="android:textSize">100sp</item>
+    </style>
 
 </resources>
