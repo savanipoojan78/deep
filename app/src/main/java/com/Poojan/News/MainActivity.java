@@ -126,10 +126,13 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Find the current article that was clicked on
                 NewsArticle currentNewsArticle = mAdapter.getItem(position);
+                String s=currentNewsArticle.getUrl();
+                Intent i=new Intent(MainActivity.this,Webview.class);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
 //                Uri articleUri = Uri.parse(currentNewsArticle.getUrl());
-                webView.loadUrl(currentNewsArticle.getUrl());
+               i.putExtra("url",s);
+               startActivity(i);
 
                 // Create a new intent to view the article URI
 //                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
@@ -211,27 +214,6 @@ public class MainActivity extends AppCompatActivity
     public void onLoaderReset(Loader<List<NewsArticle>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
-    }
-
-    @Override
-    // This method initialize the contents of the Activity's options menu
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    // This method is called whenever an button in the Toolbar is selected.
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     /**

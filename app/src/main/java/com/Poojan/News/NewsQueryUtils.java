@@ -256,12 +256,39 @@ final class NewsQueryUtils {
                 webSectionName = jsonObjectFields.optString("name");
                 webPublicationDate = currentArticle.optString("publishedAt");
                 webTitle = currentArticle.getString("title");
-                webTrailText = currentArticle.optString("description");
                 webUrl = currentArticle.getString("url");
-                byLine = currentArticle.optString("author");
                 thumbnail = currentArticle.optString("urlToImage");
-                Log.e("thumbnail", " " + thumbnail);
-
+                if(currentArticle.isNull("author"))
+                {
+                    byLine="Poojan Savani";
+                }
+                else {
+                    byLine = currentArticle.get("author").toString();
+                }
+                if(currentArticle.isNull("description"))
+                {
+                    webTrailText="";
+                }
+                else
+                {
+                    webTrailText = currentArticle.optString("description");
+                }
+                if(byLine != null && !byLine.isEmpty())
+                {
+                    byLine=byLine;
+                }
+                else
+                {
+                    byLine="Poojan Savani";
+                }
+                if(webTrailText != null && !webTrailText.isEmpty())
+                {
+                   webTrailText=webTrailText;
+                }
+                else
+                {
+                    webTrailText="";
+                }
 
                 // Add a new NewsArticle from the data
                 newsArticles.add(new NewsArticle(

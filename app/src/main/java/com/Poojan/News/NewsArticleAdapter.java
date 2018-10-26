@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,14 +96,10 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
 
         // Get and display the article's Author
         String newsAuthor = currentNewsArticle.getAuthor();
+        String name="Poijan Savani";
         TextView authorView = listItemView.findViewById(R.id.article_author);
-        if(newsAuthor != null)
-        {
-            authorView.setText(newsAuthor);
-        }
-        else{
-            authorView.setText("Poojan Savani");
-        }
+        authorView.setText(newsAuthor);
+        Log.e("Author:---",newsAuthor);
         ImageView photoView = listItemView.findViewById(R.id.article_image);
         titleView.setMaxLines(3);
         titleView.setMinLines(3);
