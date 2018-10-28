@@ -34,6 +34,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
@@ -92,6 +94,7 @@ final class NewsQueryUtils {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot news : dataSnapshot.getChildren()) {
 
                     String webSectionName = news.child("webSectionName").getValue(String.class);
@@ -120,6 +123,7 @@ final class NewsQueryUtils {
 
 
                 }
+                Collections.reverse(newsArticles);
             }
 
             @Override
