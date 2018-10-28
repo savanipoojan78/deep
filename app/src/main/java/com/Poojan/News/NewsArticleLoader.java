@@ -47,7 +47,7 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
         }
         if(mUrl.equals("Nirma News"))
         {
-            newsArticles = NewsQueryUtils.fetchArticleDatafromfirebase();
+            newsArticles =NewsQueryUtils.fetchArticleDatafromfirebase();
         }
         else{
             newsArticles = NewsQueryUtils.fetchArticleData(mUrl);

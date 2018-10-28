@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int ARTICLE_LOADER_ID = 1;
-
     /**
      * ListView that holds the articles
      **/
@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
-    private WebView webView;
     String SECTION_CHOICE;
 
     /**
@@ -143,21 +142,11 @@ public class MainActivity extends AppCompatActivity
         });
 
         // If there is a network connection, fetch data
-        loadData();
+       loadData();
 
         // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Check for internet connection and attempt to load data
-                swipeContainer.setRefreshing(true);
-                loadData();
-            }
-        });
-        // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(
-                R.color.primaryHilight,
-                R.color.secondaryHilight);
+        refresh();
+
     }
 
     @Override
@@ -220,6 +209,7 @@ public class MainActivity extends AppCompatActivity
      * Loads and reloads the data as requested
      */
     public void loadData() {
+        refresh();
         // If there is a network connection, fetch data
         if (NewsQueryUtils.isConnected(getBaseContext())) {
             // destroy old loader to get new info
@@ -286,9 +276,26 @@ public class MainActivity extends AppCompatActivity
             SECTION_CHOICE=getString(R.string.pref_topic_7_label_value);
 
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        swipeContainer.setRefreshing(true);
         loadData();
         return true;
+    }
+    private void refresh()
+    {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Check for internet connection and attempt to load data
+                swipeContainer.setRefreshing(true);
+                loadData();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(
+                R.color.primaryHilight,
+                R.color.secondaryHilight);
     }
 }
