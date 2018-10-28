@@ -1,6 +1,7 @@
 
 package com.Poojan.News;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,6 +120,9 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.guardian_placeholder).
                 error(R.drawable.guardian_placeholder)
                 .into(photoView);
+
+        Animation animation=AnimationUtils.loadAnimation(context, R.anim.abc_grow_fade_in_from_bottom);
+        listItemView.startAnimation(animation);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

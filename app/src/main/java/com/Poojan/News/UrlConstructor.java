@@ -37,6 +37,7 @@ public final class UrlConstructor {
             stringBuilder.append(section);
         } else {
             stringBuilder.append(MyApplication.getAppContext().getResources().getString(R.string.pref_topic_0_label_value));
+            stringBuilder.append("&pageSize=50");
         }
 
 //        // If the orderBy isn't null then add that
