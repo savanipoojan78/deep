@@ -97,12 +97,12 @@ final class NewsQueryUtils {
 
                 for (DataSnapshot news : dataSnapshot.getChildren()) {
 
-                    String webSectionName = news.child("webSectionName").getValue(String.class);
-                    String webPublicationDate = news.child("webPublicationDate").getValue(String.class);
-                    String webTitle = news.child("webTitle").getValue(String.class);
-                    String webTrailText = news.child("webTrailText").getValue(String.class);
-                    String webUrl = news.child("webUrl").getValue(String.class);
-                    String byLine = news.child("byLine").getValue(String.class);
+                    String webSectionName = news.child("sectionName").getValue(String.class);
+                    String webPublicationDate = news.child("publishedDate").getValue(String.class);
+                    String webTitle = news.child("title").getValue(String.class);
+                    String webTrailText = news.child("trailText").getValue(String.class);
+                    String webUrl = news.child("url").getValue(String.class);
+                    String byLine = news.child("author").getValue(String.class);
                     String thumbnail = news.child("thumbnail").getValue(String.class);
                     // Log.e("thumbnail String "," "+thumbnail);
                    // Bitmap bitmap = downloadBitmap(thumbnail);

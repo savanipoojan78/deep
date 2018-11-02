@@ -39,11 +39,8 @@ public class Webview extends AppCompatActivity {
             } else {
                 load= extras.getString("url");
             }
-            webView.clearCache(true);
-            webView.clearHistory();
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-            webView.getSettings().setBuiltInZoomControls(true);
+//            webView.clearCache(true);
+//            webView.clearHistory();
             webView.loadUrl(load);
 
         }

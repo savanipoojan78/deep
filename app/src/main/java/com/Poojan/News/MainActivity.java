@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nevigation);
-        SECTION_CHOICE=getString(R.string.pref_topic_7_label_value);
+        SECTION_CHOICE=getString(R.string.pref_topic_6_label_value);
 
 
         // Find the menu toolbar for app compat
@@ -127,17 +127,9 @@ public class MainActivity extends AppCompatActivity
                 NewsArticle currentNewsArticle = mAdapter.getItem(position);
                 String s=currentNewsArticle.getUrl();
                 Intent i=new Intent(MainActivity.this,Webview.class);
-
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
-//                Uri articleUri = Uri.parse(currentNewsArticle.getUrl());
                i.putExtra("url",s);
                startActivity(i);
 
-                // Create a new intent to view the article URI
-//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-//
-//                // Send the intent to launch a new activity
-//                startActivity(websiteIntent);
             }
         });
 
@@ -190,6 +182,7 @@ public class MainActivity extends AppCompatActivity
             mAdapter.addAll(newsArticles);
         } else {
             if (NewsQueryUtils.isConnected(getBaseContext())) {
+                loadData();
                 // Set empty state text to display "No articles found."
                 mEmptyStateTextView.setText(R.string.no_articles);
             } else {
