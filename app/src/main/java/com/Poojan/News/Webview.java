@@ -8,6 +8,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class Webview extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.cordinatorLayout);
         WebView webView=(WebView)findViewById(R.id.load);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         Bundle extras = getIntent().getExtras();
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo i = manager.getActiveNetworkInfo();
@@ -42,6 +45,7 @@ public class Webview extends AppCompatActivity {
 //            webView.clearCache(true);
 //            webView.clearHistory();
             webView.loadUrl(load);
+
 
         }
         else

@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity
      */
     private TextView mEmptyStateTextView;
     String SECTION_CHOICE;
-
+    ImageView nevigationholder;
     /**
      * Swipe to reload spinner that is displayed while data is being downloaded
      */
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nevigation);
         SECTION_CHOICE=getString(R.string.pref_topic_6_label_value);
+
 
 
         // Find the menu toolbar for app compat
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         // Lookup the swipe container view
         swipeContainer = findViewById(R.id.swipeContainer);
         swipeContainer.setRefreshing(true);
+        nevigationholder=(ImageView)findViewById(R.id.imageView);
 
         // Find a reference to the {@link ListView} in the layout
         articleListView = findViewById(R.id.list);
@@ -243,6 +247,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_business) {
+
             SECTION_CHOICE=getString(R.string.pref_topic_0_label_value);
             // Handle the camera action
         } else if (id == R.id.nav_entertinment) {

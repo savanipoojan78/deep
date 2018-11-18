@@ -117,8 +117,8 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         set.applyTo(constraintLayout);
 
         // Find and display the article's Thumbnail
-        Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.guardian_placeholder).
-                error(R.drawable.guardian_placeholder)
+        Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.news_placeholder).
+                error(R.drawable.news_placeholder)
                 .into(photoView);
 
         Animation animation=AnimationUtils.loadAnimation(context, R.anim.abc_grow_fade_in_from_bottom);

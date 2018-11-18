@@ -58,7 +58,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/newslist_constraint_layout"
                 app:layout_constraintTop_toTopOf="@+id/newslist_constraint_layout"
-                app:srcCompat="@drawable/guardian_placeholder" />
+                app:srcCompat="@drawable/news_placeholder" />
 
             <ImageView
                 android:id="@+id/scrim"
