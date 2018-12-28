@@ -1,71 +1,44 @@
 
 package com.Poojan.News;
 
-import android.graphics.Bitmap;
 
 /**
  * An {@link NewsArticle} object contains information related to a single article.
  */
 public class NewsArticle {
 
-    private String webSectionName;
-    private String webPublicationDate;
-    private String webTitle;
-    private String webTrailText;
-    private String webUrl;
-    private String byLine;
-    private String thumbnail;
+    private String distance;
+    private String latitude;
+    private String  longitude;
+    private String level;
+    private String voltage;
 
-
-    /**
-     * Constructs a new {@link NewsArticle} object
-     *
-     * @param webSectionName     Section for the article
-     * @param webPublicationDate Publication date for the article
-     * @param webTitle           Title of the article
-     * @param webTrailText       TrailText of the article
-     * @param webUrl             Url of the article
-     * @param byLine             Author of the article
-     * @param thumbnail          Url to the thumbnail of the article
-     */
-    public NewsArticle(String webSectionName, String webPublicationDate, String webTitle,
-                       String webTrailText, String webUrl, String byLine,String thumbnail) {
-        this.webSectionName = webSectionName;
-        this.webPublicationDate = webPublicationDate;
-        this.webTitle = webTitle; //headLine
-        this.webTrailText = webTrailText;
-        this.webUrl = webUrl;
-        this.byLine = byLine;
-        this.thumbnail = thumbnail;
+    public String getDistance() {
+        return distance;
     }
 
-    public NewsArticle(){}
-
-    public String getSectionName() {
-        return webSectionName;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public String getPublishedDate() {
-        return webPublicationDate;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public String getTitle() {
-        return webTitle;
+    public String getLevel() {
+        return level;
     }
 
-    public String getTrailText() {
-        return webTrailText;
+    public String getVoltage() {
+        return voltage;
     }
 
-    public String getUrl() {
-        return webUrl;
-    }
+    public NewsArticle(String distance, String latitude, String longitude, String level, String voltage) {
+        this.distance = distance;
 
-    public String getAuthor() {
-        return byLine;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.level = level;
+        this.voltage = voltage;
     }
 }

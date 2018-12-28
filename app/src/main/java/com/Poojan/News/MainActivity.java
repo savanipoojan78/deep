@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nevigation);
-        SECTION_CHOICE=getString(R.string.pref_topic_6_label_value);
+        SECTION_CHOICE=getString(R.string.pref_topic_0_label_value);
 
 
 
@@ -129,10 +129,12 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Find the current article that was clicked on
                 NewsArticle currentNewsArticle = mAdapter.getItem(position);
-                String s=currentNewsArticle.getUrl();
-                Intent i=new Intent(MainActivity.this,Webview.class);
-               i.putExtra("url",s);
-               startActivity(i);
+                String strUri = "http://maps.google.com/maps?q=loc:" + Double.parseDouble(currentNewsArticle.getLatitude()) + "," + Double.parseDouble(currentNewsArticle.getLongitude()) + " (" + "DustBin Location" + ")";
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+
+                startActivity(intent);
 
             }
         });
@@ -149,24 +151,18 @@ public class MainActivity extends AppCompatActivity
     public Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
         // Get User Preferences or Defaults from Settings
         //String ORDER_BY = getPreferenceStringValue(R.string.pref_order_by_key, R.string.pref_order_by_default);
-        boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
+       // boolean PREF_THUMBNAIL = getPreferenceBooleanValue(R.string.pref_thumbnail_key, R.bool.pref_thumbnail_default);
 
         // Change the Subtitle to Section Choice
         TextView SectionTitle = findViewById(R.id.toolbar_subtitle);
         String GUARDIAN_SECTION;
         SectionTitle.setText(HashMapper.urlToLabel(SECTION_CHOICE));
-        if(SECTION_CHOICE.equals("Nirma News"))
-        {
-             GUARDIAN_SECTION=SECTION_CHOICE;
-        }
-        else{
-            GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE);
-        }
+        GUARDIAN_SECTION = UrlConstructor.constructUrl(SECTION_CHOICE);
         // Construct the API URL to query the Guardian Dataset
 
         // Create a new loader for the given URL
 
-        return new NewsArticleLoader(this, GUARDIAN_SECTION, PREF_THUMBNAIL);
+        return new NewsArticleLoader(this, GUARDIAN_SECTION);
     }
 
     @Override
@@ -228,20 +224,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * A helper method to extract current preference boolean value
-     *
-     * @param key          preference's key
-     * @param defaultValue preference's default value
-     * @return preference  current value
-     */
-    public boolean getPreferenceBooleanValue(int key, int defaultValue) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return sharedPreferences.getBoolean(
-                getString(key),
-                getResources().getBoolean(defaultValue)
-        );
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -255,23 +237,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_general) {
             SECTION_CHOICE=getString(R.string.pref_topic_2_label_value);
-
-        } else if (id == R.id.nav_health) {
-            SECTION_CHOICE=getString(R.string.pref_topic_3_label_value);
-
-        } else if (id == R.id.nav_science) {
-            SECTION_CHOICE=getString(R.string.pref_topic_4_label_value);
-
-        } else if (id == R.id.nav_sports) {
-            SECTION_CHOICE=getString(R.string.pref_topic_5_label_value);
-
-        }
-        else if (id == R.id.nav_technology) {
-            SECTION_CHOICE=getString(R.string.pref_topic_6_label_value);
-
-        }
-        else if (id == R.id.nav_nirma) {
-            SECTION_CHOICE=getString(R.string.pref_topic_7_label_value);
 
         }
 

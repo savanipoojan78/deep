@@ -12,46 +12,27 @@ public final class UrlConstructor {
     private static final String LOG_TAG = "UrlConstructor";
 
     // URL Base
-    private static final String URL_BASE = "https://newsapi.org/v2/top-headlines?country=in";
+    private static final String URL_BASE_1 = "http://meserverdata.000webhostapp.com/poojan.json";
+    private static final String URL_BASE_2 = "http://meserverdata.000webhostapp.com/poojan2.json";
+    private static final String URL_BASE_3 = "http://meserverdata.000webhostapp.com/poojan3.json";
 
-    /**
-     * API Key Value which you need to store in your gradle.properties file as:
-     * GoodNewsFirst_GuardianApp_ApiKey="YOUR-API-KEY-HERE"
-     */
-    private static final String apiKey = BuildConfig.ApiKey;
-    private static final String URL_API_KEY = "&apiKey=" + apiKey;
-
-    /**
-     * Returns a Guardian API URL string from all the components
-     * @param section section or tag in Guardian
-     * @return URL string
-     */
     public static String constructUrl(@Nullable String section) {
 
         // Start the StringBuilder and add the URL Base to the beginning
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(URL_BASE);
 
         // If the section isn't null then add that
-        if (section != null) {
-            stringBuilder.append(section);
-        } else {
-            stringBuilder.append(MyApplication.getAppContext().getResources().getString(R.string.pref_topic_0_label_value));
-            stringBuilder.append("&pageSize=50");
+        if (section.equals("dustbin1")) {
+            stringBuilder.append(URL_BASE_1);
+        } else if(section.equals("dustbin2"))
+        {
+            stringBuilder.append(URL_BASE_2);
+        }
+        else
+        {
+            stringBuilder.append(URL_BASE_3);
         }
 
-//        // If the orderBy isn't null then add that
-//        if (orderBy != null) {
-//            stringBuilder.append("&order-by="
-//                    + orderBy);
-//        } else {
-//            // order by newest articles by default if no preference set
-//            stringBuilder.append("&order-by="
-//                    + MyApplication.getAppContext().getResources().getString(R.string.pref_order_by_default));
-//        }
-
-        // Add the API Key to the end of the query
-        stringBuilder.append(URL_API_KEY);
 
         // LOG the API URL
         Log.e(LOG_TAG, "API GUARDIAN_REQUEST_URL: " + stringBuilder.toString());

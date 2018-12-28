@@ -84,57 +84,6 @@ final class NewsQueryUtils {
         return extractFeatureFromJson(jsonResponse);
     }
 
-    /**
-     * Returns new URL object from the given string URL.
-     */
-    static List<NewsArticle> fetchArticleDatafromfirebase() {
-        final List<NewsArticle> newsArticles = new ArrayList<>();
-        DatabaseReference databaseReference;
-        databaseReference = FirebaseDatabase.getInstance().getReference("response");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot news : dataSnapshot.getChildren()) {
-
-                    String webSectionName = news.child("sectionName").getValue(String.class);
-                    String webPublicationDate = news.child("publishedDate").getValue(String.class);
-                    String webTitle = news.child("title").getValue(String.class);
-                    String webTrailText = news.child("trailText").getValue(String.class);
-                    String webUrl = news.child("url").getValue(String.class);
-                    String byLine = news.child("author").getValue(String.class);
-                    String thumbnail = news.child("thumbnail").getValue(String.class);
-                    // Log.e("thumbnail String "," "+thumbnail);
-                   // Bitmap bitmap = downloadBitmap(thumbnail);
-                   // Log.e("bitmap after String", " " + bitmap);
-
-
-                    // Log.e("WebSectionName"," "+webSectionName);
-                    //Log.e("WebsitePhoto", " "+thumbnail);
-                    newsArticles.add(new NewsArticle(
-                            webSectionName,
-                            webPublicationDate,
-                            webTitle,
-                            html2text(webTrailText),
-                            webUrl,
-                            byLine,
-                            thumbnail
-                    ));
-
-
-                }
-                Collections.reverse(newsArticles);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d(TAG, "Something wrong with the Firebase database");
-                Toast.makeText(MyApplication.getAppContext(), "Something wrong with the Firebase database", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        return newsArticles;
-    }
 
 
     private static URL createUrl(String stringUrl) {
@@ -216,13 +165,11 @@ final class NewsQueryUtils {
      * parsing the given JSON response.
      */
     private static List<NewsArticle> extractFeatureFromJson(String articleJSON) {
-        String webSectionName;
-        String webPublicationDate;
-        String webTitle;
-        String webUrl;
-        String webTrailText;
-        String byLine;
-        String thumbnail;
+         String distance;
+         String latitude;
+         String  longitude;
+         String level;
+         String voltage;
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(articleJSON)) {
             Log.v(LOG_TAG, "The JSON string is empty or null. Returning early.");
@@ -236,14 +183,8 @@ final class NewsQueryUtils {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-            // Create a JSONObject from the JSON response string
-            JSONObject jsonObjectRoot = new JSONObject(articleJSON);
 
-            // Extract the JSONArray associated with the key called "response",
-            // which represents a list of features (or newsArticles).
-
-            // Grab the results array from the base object
-            JSONArray jsonArrayResults = jsonObjectRoot.getJSONArray("articles");
+            JSONArray jsonArrayResults = new JSONArray(articleJSON);
 
             // For each article in the articleArray, create an {@link NewsArticle} object
             for (int i = 0; i < jsonArrayResults.length(); i++) {
@@ -252,57 +193,20 @@ final class NewsQueryUtils {
                 JSONObject currentArticle = jsonArrayResults.getJSONObject(i);
 
                 // Target the fields object that contains all the elements we need
-                JSONObject jsonObjectFields = currentArticle.getJSONObject("source");
+
 
                 // Note:    optString() will return null when fails.
                 //          getString() will throw exception when it fails.
 
-                webSectionName = jsonObjectFields.optString("name");
-                webPublicationDate = currentArticle.optString("publishedAt");
-                webTitle = currentArticle.getString("title");
-                webUrl = currentArticle.getString("url");
-                thumbnail = currentArticle.optString("urlToImage");
-                if(currentArticle.isNull("author"))
-                {
-                    byLine="Poojan Savani";
-                }
-                else {
-                    byLine = currentArticle.get("author").toString();
-                }
-                if(currentArticle.isNull("description"))
-                {
-                    webTrailText="";
-                }
-                else
-                {
-                    webTrailText = currentArticle.optString("description");
-                }
-                if(byLine != null && !byLine.isEmpty())
-                {
-                    byLine=byLine;
-                }
-                else
-                {
-                    byLine="Poojan Savani";
-                }
-                if(webTrailText != null && !webTrailText.isEmpty())
-                {
-                   webTrailText=webTrailText;
-                }
-                else
-                {
-                    webTrailText="";
-                }
+                distance = currentArticle.optString("Distance");
+                latitude = currentArticle.optString("Latitude");
+                longitude = currentArticle.getString("Longitude");
+                level = currentArticle.getString("Level");
+                voltage = currentArticle.optString("Voltage");
 
                 // Add a new NewsArticle from the data
                 newsArticles.add(new NewsArticle(
-                        webSectionName,
-                        webPublicationDate,
-                        webTitle,
-                        html2text(webTrailText),
-                        webUrl,
-                        byLine,
-                        thumbnail
+                        distance,latitude,longitude,level,voltage
                 ));
             }
 
@@ -318,42 +222,6 @@ final class NewsQueryUtils {
         // Return the list of newsArticles
         return newsArticles;
     }
-
-    /**
-     * Strip out possible HTML tags from the webTrailText using jSoup
-     */
-    private static String html2text(String html) {
-        return Jsoup.parse(html).text();
-    }
-
-    /**
-     * Load the low res thumbnail image from the URL. If available in 1000px format,
-     * use that instead. Return a {@link Bitmap}
-     * Credit to Mohammad Ali Fouani via https://stackoverflow.com/q/51587354/9302422
-     * <p>
-     * // * @param originalUrl string of the original URL link to the thumbnail image
-     *
-     * @return Bitmap of the image
-     */
-//    private static Bitmap downloadBitmap(String originalUrl) {
-//        Bitmap bitmap = null;
-//        try {
-//            Log.e("OriginalUrl",originalUrl);
-//            URL url = new URL(originalUrl);
-//            Log.e("url"," "+url.toString());
-//            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//            Log.e("Bitmap"," "+ bitmap.toString());
-//
-//        } catch (Exception ignored) {
-//            Log.e("NewsQuery", "Something Wrong with The Download");
-//        }
-//
-//
-//
-//        return bitmap;
-//    }
-
-
 
     /**
      * Checks to see if there is a network connection when needed

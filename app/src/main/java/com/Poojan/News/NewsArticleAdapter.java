@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -64,99 +65,40 @@ public class NewsArticleAdapter extends ArrayAdapter<NewsArticle> {
         NewsArticle currentNewsArticle = getItem(position);
 
         // Get and display the article's Section
-        String newsSection = currentNewsArticle.getSectionName();
-        TextView sectionNameView = listItemView.findViewById(R.id.article_section);
-        sectionNameView.setText(newsSection);
+        String distance = currentNewsArticle.getDistance();
+        TextView sectionNameView = listItemView.findViewById(R.id.article_time);
+        sectionNameView.setText(distance);
 
         // Get and display the article's Title
-        String newsTitle = currentNewsArticle.getTitle();
-        TextView titleView = listItemView.findViewById(R.id.article_title);
-        titleView.setText(newsTitle);
+        String progress = currentNewsArticle.getLevel();
+        ProgressBar progresView = listItemView.findViewById(R.id.progress_bar);
+        progresView.setProgress(Integer.parseInt(progress));
+        TextView level = listItemView.findViewById(R.id.article_title);
+        level.setText(progress);
 
         // Get and display the article's Trail Text
-        String newsTrail = currentNewsArticle.getTrailText();
-        TextView trailView = listItemView.findViewById(R.id.article_trailtext);
-        // Display the trailtext for the current article in that TextView or hide it if null
-        if (newsTrail != null && !newsTrail.isEmpty()) {
-            newsTrail = newsTrail + ".";
-            trailView.setText(newsTrail);
-        } else {
-            trailView.setVisibility(View.GONE);
-        }
+        String voltage = currentNewsArticle.getVoltage();
+        TextView trailView = listItemView.findViewById(R.id.article_author);
+        trailView.setText(voltage);
 
-        // Create a new Date object from the time in milliseconds of the article
-        // Format the article_date string (i.e. "Mar 3, '18")
-        String formattedDate = formatDate(currentNewsArticle.getPublishedDate());
-        // Find and display the article's Date
-        TextView dateView = listItemView.findViewById(R.id.article_date);
-        dateView.setText(formattedDate);
+//        ImageView photoView = listItemView.findViewById(R.id.article_image);
 
-        // Format the time string (i.e. "4:30 PM")
-        String formattedTime = formatTime(currentNewsArticle.getPublishedDate());
-        // Find and display the article's Time
-        TextView timeView = listItemView.findViewById(R.id.article_time);
-        timeView.setText(formattedTime);
-
-        // Get and display the article's Author
-        String newsAuthor = currentNewsArticle.getAuthor();
-        String name="Poijan Savani";
-        TextView authorView = listItemView.findViewById(R.id.article_author);
-        authorView.setText(newsAuthor);
-        Log.e("Author:---",newsAuthor);
-        ImageView photoView = listItemView.findViewById(R.id.article_image);
-        titleView.setMaxLines(3);
-        titleView.setMinLines(3);
         ConstraintLayout constraintLayout = listItemView.findViewById(R.id.newslist_constraint_layout);
         ConstraintSet set = new ConstraintSet();
         set.clone(constraintLayout);
-        set.setDimensionRatio(photoView.getId(), "16:9");
+      //  set.setDimensionRatio(photoView.getId(), "16:9");
         set.applyTo(constraintLayout);
         set.clear(R.id.article_title, ConstraintSet.START);
         // Then attach a new constraint connection.
-        set.connect(R.id.article_title, ConstraintSet.END, R.id.article_image, ConstraintSet.END, 0);
+        //set.connect(R.id.article_title, ConstraintSet.END, R.id.article_image, ConstraintSet.END, 0);
         set.applyTo(constraintLayout);
 
-        // Find and display the article's Thumbnail
-        Picasso.with(context).load(currentNewsArticle.getThumbnail()).placeholder(R.drawable.news_placeholder).
-                error(R.drawable.news_placeholder)
-                .into(photoView);
-
-        Animation animation=AnimationUtils.loadAnimation(context, R.anim.abc_grow_fade_in_from_bottom);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.abc_grow_fade_in_from_bottom);
         listItemView.startAnimation(animation);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
 
-    /**
-     * Return a formatted time string (i.e. "Mar 3, '18") from a Date object.
-     */
-    private String formatDate(String date) {
-        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
 
-        Date date_out = null;
-        try {
-            date_out = inputParser.parse(date);
-        } catch (final ParseException e) {
-            e.printStackTrace();
-        }
-        final SimpleDateFormat outputFormatter = new SimpleDateFormat("MMM dd ''yy", Locale.US);
-        return outputFormatter.format(date_out);
-    }
-
-    /**
-     * Return a formatted date string (i.e. "4:30 PM") from a Date object.
-     */
-    private String formatTime(String date) {
-        final SimpleDateFormat inputParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-
-        Date date_out = null;
-        try {
-            date_out = inputParser.parse(date);
-        } catch (final ParseException e) {
-            e.printStackTrace();
-        }
-        final SimpleDateFormat outputFormatter = new SimpleDateFormat("h:mm a", Locale.US);
-        return outputFormatter.format(date_out);
-    }
 }

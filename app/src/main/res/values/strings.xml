@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Permanent App Text -->
-    <string name="app_name">Good News First</string>
-    <string name="no_articles">Currently there are no stories for you. Please come back later and try again.</string>
+    <string name="app_name">DustBin</string>
+    <string name="no_articles">Currently there are no Dustbin</string>
     <string name="no_internet_connection">No internet connection. Please reconnect and try again.</string>
     <string name="no_json_ok_response">Problem parsing the JSON results from the Guardian API.</string>
     <string name="powered_by">Powered by</string>
@@ -44,22 +44,12 @@
     <string name="pref_topic_title">Topic</string>
     <string name="pref_topic_key" translatable="false">topic</string>
     <string name="pref_topic_default">@string/pref_topic_0_label_value</string>
-    <string name="pref_topic_0_label">Business</string>
-    <string name="pref_topic_1_label">Entertainment</string>
-    <string name="pref_topic_2_label">General</string>
-    <string name="pref_topic_3_label">Health</string>
-    <string name="pref_topic_4_label">Science</string>
-    <string name="pref_topic_5_label">Sports</string>
-    <string name="pref_topic_6_label">Technology</string>
-    <string name="pref_topic_7_label">Nirma News</string>
-    <string name="pref_topic_0_label_value" translatable="false">&amp;category=business</string>
-    <string name="pref_topic_1_label_value" translatable="false">&amp;category=entertainment</string>
-    <string name="pref_topic_2_label_value" translatable="false">&amp;category=general</string>
-    <string name="pref_topic_3_label_value" translatable="false">&amp;category=health</string>
-    <string name="pref_topic_4_label_value" translatable="false">&amp;category=science</string>
-    <string name="pref_topic_5_label_value" translatable="false">&amp;category=sports</string>
-    <string name="pref_topic_6_label_value" translatable="false">&amp;category=technology</string>
-    <string name="pref_topic_7_label_value" translatable="false">Nirma News</string>
+    <string name="pref_topic_0_label">Dustbin 1</string>
+    <string name="pref_topic_1_label">Dustbin 2</string>
+    <string name="pref_topic_2_label">Dustbin 3</string>
+    <string name="pref_topic_0_label_value" translatable="false">dustbin1</string>
+    <string name="pref_topic_1_label_value" translatable="false">dustbin2</string>
+    <string name="pref_topic_2_label_value" translatable="false">dustbin3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

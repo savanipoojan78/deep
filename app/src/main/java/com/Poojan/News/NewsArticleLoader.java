@@ -22,12 +22,12 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
      *
      * @param context of the activity
      * @param url to load data from
-     * @param prefThumbnail to load data from
+
      */
-    public NewsArticleLoader(Context context, String url, Boolean prefThumbnail) {
+    public NewsArticleLoader(Context context, String url) {
         super(context);
         mUrl = url;
-        mPrefThumbnail = prefThumbnail;
+
     }
 
     @Override
@@ -44,10 +44,6 @@ public class NewsArticleLoader extends AsyncTaskLoader<List<NewsArticle>> {
 
         if (mUrl == null) {
             return null;
-        }
-        if(mUrl.equals("Nirma News"))
-        {
-            newsArticles =NewsQueryUtils.fetchArticleDatafromfirebase();
         }
         else{
             newsArticles = NewsQueryUtils.fetchArticleData(mUrl);
